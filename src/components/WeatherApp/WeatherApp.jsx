@@ -32,8 +32,8 @@ const WeatherApp = () => {
     const location = document.getElementsByClassName("weather-location")[0];
 
     hudimity.innerHTML = data.main.humidity + "%";
-    wind.innerHTML = data.wind.speed + " km/h";
-    temp.innerHTML = data.main.temp + "°C";
+    wind.innerHTML = Math.floor(data.wind.speed) + " km/h";
+    temp.innerHTML = Math.floor(data.main.temp) + "°C";
     location.innerHTML = data.name;
 
     if (data.weather[0].icon === "01d" || data.weather[0].icon === "01n") {
@@ -72,17 +72,16 @@ const WeatherApp = () => {
       setWicon(clear_icon);
     }
   };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    search();
+  };
 
   return (
     <div className="container">
       <div className="top-bar">
-        <form>
-          <input
-            type="text"
-            className="cityInput"
-            placeholder="Search"
-            onSubmit={search}
-          />
+        <form onSubmit={handleSubmit}>
+          <input type="text" className="cityInput" placeholder="Search" />
         </form>
         <div className="search-icon" onClick={search}>
           <img src={search_icon} alt="" />
